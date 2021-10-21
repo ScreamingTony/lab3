@@ -20,11 +20,12 @@ public class OrdersService {
     @Autowired
     private OrderDao orderDao;
 
-    public ReturnObject<VoObject> findById(Integer id) {
+    public ReturnObject<VoObject> findById(Integer id,Boolean isDao) {
         OrdersPo queryObj=new OrdersPo();
         queryObj.setId(id);
-        //ReturnObject<List<Orders>> returnObject=orderDao.findOrder(queryObj,true);
-        ReturnObject<List<Orders>> returnObject=orderDao.findOrdersWithOrderItem(queryObj);
+        ReturnObject<List<Orders>> returnObject;
+        if(isDao)  returnObject=orderDao.findOrder(queryObj,true);
+        else returnObject=orderDao.findOrdersWithOrderItem(queryObj);
         ReturnObject<VoObject> retOrders = null;
         if (returnObject.getCode().equals(ResponseCode.OK)) {
             if (returnObject.getData().size() == 1) {
@@ -37,4 +38,5 @@ public class OrdersService {
         }
         return retOrders ;
     }
+
 }

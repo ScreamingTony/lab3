@@ -51,10 +51,29 @@ public class OrdersController {
     })
     @ApiResponses({
     })
-    @GetMapping("{id}")
-    public Object getOrdersById(@PathVariable("id") Integer id){
+    @GetMapping("/xml/{id}")
+    public Object getOrdersById_xml(@PathVariable("id") Integer id){
         logger.info("receive id:"+id);
-        ReturnObject<VoObject> returnObject =  ordersService.findById(id);
+        ReturnObject<VoObject> returnObject =  ordersService.findById(id,false);
+        ResponseCode code = returnObject.getCode();
+        switch (code){
+            //表示操作的资源id不存在,设置http状态码为NOT_FOUND 即404
+            case RESOURCE_ID_NOTEXIST:
+                httpServletResponse.setStatus(HttpStatus.NOT_FOUND.value());
+                return ResponseUtil.fail(returnObject.getCode(), returnObject.getErrmsg());
+            //成功找到
+            case OK:
+                OrdersRetVo ordersRetVo = (OrdersRetVo) returnObject.getData().createVo();
+                return ResponseUtil.ok(ordersRetVo);
+            default:
+                return ResponseUtil.fail(code);
+        }
+    }
+
+    @GetMapping("/dao/{id}")
+    public Object getOrdersById_dao(@PathVariable("id") Integer id){
+        logger.info("receive id:"+id);
+        ReturnObject<VoObject> returnObject =  ordersService.findById(id,true);
         ResponseCode code = returnObject.getCode();
         switch (code){
             //表示操作的资源id不存在,设置http状态码为NOT_FOUND 即404
