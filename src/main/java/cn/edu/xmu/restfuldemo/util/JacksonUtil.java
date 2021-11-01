@@ -60,6 +60,10 @@ public class JacksonUtil {
             node = mapper.readTree(body);
             JsonNode leaf = node.get(field);
 
+            if (leaf != null) {
+                return mapper.convertValue(leaf, new TypeReference<List<T>>() {
+                });
+            }
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         }
@@ -205,7 +209,18 @@ public class JacksonUtil {
         return null;
     }
 
-    public static <T> List<T> parseObjectList(String body, Class<T> clazz){
+    public static <T> T toObj(String data, Class<T> clazz){
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
+        try {
+            return mapper.readValue(data, clazz);
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    public static <T> List<T> toObjectList(String body, Class<T> clazz){
         ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
                 .registerModule(new JavaTimeModule());
 
