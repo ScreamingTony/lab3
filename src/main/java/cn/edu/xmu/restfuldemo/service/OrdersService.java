@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cn.edu.xmu.restfuldemo.util.ReturnObject;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 @Service
@@ -39,4 +40,9 @@ public class OrdersService {
         return retOrders ;
     }
 
+    public void InsertOrders(Post_Orders postOrders)
+    {
+        OrdersPo ordersPo=new OrdersPo(postOrders);
+        orderDao.insertOrders(ordersPo);
+    }
 }

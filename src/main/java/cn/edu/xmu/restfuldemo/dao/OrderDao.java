@@ -5,6 +5,7 @@ import cn.edu.xmu.restfuldemo.bean.*;
 //import cn.edu.xmu.restfuldemo.util.Common;
 import cn.edu.xmu.restfuldemo.bean.OrdersVo;
 import cn.edu.xmu.restfuldemo.util.ReturnObject;
+import cn.edu.xmu.restfuldemo.util.getid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +81,19 @@ public class OrderDao {
         }
         return new ReturnObject<>(retOrders);
     }
+
+    public void insertOrders(OrdersPo ordersPo)
+    {
+        Integer id=getid.id;
+        getid.id++;
+        ordersPo.setId(id);
+        orderMapper.createOrders(ordersPo);
+        for(OrderItemPo orderItemPo:ordersPo.getOrder_itemPoList)
+        {
+            orderItemPo.setId(id);
+            orderMapper.createOrderItem(orderItemPo);
+        }
+    }
+
 
 }

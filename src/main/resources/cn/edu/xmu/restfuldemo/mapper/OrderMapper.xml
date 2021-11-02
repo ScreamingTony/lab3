@@ -49,6 +49,16 @@
         <if test="id!=null"> id = #{id} </if>
     </select>
 
+    <insert id="createOrders" parameterType="OrdersPo">
+        insert into orders(id,customer_id,shop_id,order_sn,pid,consignee,region_id,address,mobile,message,order_type,freight_price,coupon_id,coupon_activity_id,discount_price,origin_price,presale_id,groupon_discount,rebate_num,confirm_time,shipment_sn,`state`,substate,be_deleted,gmt_create,gmt_modified,groupon_id)
+        values (#{id},#{customer_id},#{shop_id},#{order_sn},#{pid},#{consignee},#{region_id},#{address},#{mobile},#{message},#{order_type},#{freight_price},#{coupon_id},#{coupon_activity_id},#{discount_price},#{origin_price},#{presale_id},#{groupon_discount},#{rebate_num},#{confirm_time},#{shipment_sn},#{state},#{substate},#{be_deleted},#{gmt_create},#{gmt_modified},#{groupon_id})
+    </insert>
+
+    <insert id="createOrderItem" parameterType="OrderItemPo">
+        insert into order_item(id,order_id,goods_sku_id,quantity,price,discount,`name`,coupon_activity_id,be_share_id,gmt_create,gmt_modified)
+        values (#{id},#{orderId},#{skuId},#{quantity},#{price},#{discount},#{name},#{couponActId},#{beShareId},#{gmtCreate},#{gmtModified})
+    </insert>
+
     <select id="findOrderItem" parameterType="OrderItemPo" resultType="OrderItemPo">
         SELECT
             id,
@@ -56,7 +66,7 @@
             quantity,
             price,
             discount,
-            name,
+            `name`,
             coupon_activity_id,
             be_share_id
         FROM order_item

@@ -22,4 +22,10 @@ public class OrderItemPo {
     private Integer beShareId;
     private Date gmtCreate;
     private Date gmtModified;
+    public OrderItemPo(Post_OrderItems postOrderItems)
+    {
+        this.skuId=postOrderItems.getSkuId();
+        this.quantity= postOrderItems.getQuantity();
+        this.couponActId=postOrderItems.getCouponActId();
+    }
 }

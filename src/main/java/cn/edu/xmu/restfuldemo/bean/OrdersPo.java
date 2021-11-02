@@ -39,4 +39,21 @@ public class OrdersPo {
     private Date gmt_modified;
     private Integer groupon_id;
     private List<OrderItemPo> order_itemPoList;
+
+    public OrdersPo(Post_Orders postOrders)
+    {
+        this.consignee=postOrders.getConsignee();
+        this.region_id=postOrders.getRegionId();
+        this.address=postOrders.getAddress();
+        this.mobile=postOrders.getMobile();
+        this.message=postOrders.getMessage();
+        this.coupon_id=postOrders.getCouponId();
+        this.presale_id=postOrders.getPresaleId();
+        this.groupon_id=postOrders.getGrouponId();
+        for(Post_OrderItems postOrderItems:postOrders.getOrderItemsList())
+        {
+            OrderItemPo orderItemPo=new OrderItemPo(postOrderItems);
+            order_itemPoList.add(orderItemPo);
+        }
+    }
 }
