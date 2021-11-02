@@ -21,6 +21,7 @@ public class Order1ConsumerListener implements RocketMQListener<String>, RocketM
     @Override
     public void onMessage(String message) {
         Post_Orders post_orders = JacksonUtil.toObj(message, Post_Orders.class);
+        //OrderMapper.createOrders(post_orders);
     }
 
     @Override

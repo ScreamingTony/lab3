@@ -44,9 +44,11 @@ public class RocketMQService {
     }
 
 
-    //异步发送，不知道有没有用，先写了
+    //异步发送，输出记得注释掉
     public void sendOrderMessage2(Post_Orders post_orders){
-        rocketMQTemplate.asyncSend("order-topic2", MessageBuilder.withPayload(post_orders.toString()).build(), new SendCallback() {
+        String json=JacksonUtil.toJson(post_orders);
+        Message message = MessageBuilder.withPayload(json).build();
+        rocketMQTemplate.asyncSend("order-topic1", message, new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {
                System.out.println("我超，成功");
@@ -57,5 +59,12 @@ public class RocketMQService {
                 System.out.println("我超，寄了");
             }
         });
+    }
+
+    //同步发送
+    public void sendOrderMessage3(Post_Orders post_orders){
+        String json=JacksonUtil.toJson(post_orders);
+        Message message = MessageBuilder.withPayload(json).build();
+        rocketMQTemplate.syncSend("order-topic1", message);
     }
 }

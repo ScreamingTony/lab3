@@ -4,6 +4,7 @@ package cn.edu.xmu.restfuldemo.controller;
 import cn.edu.xmu.restfuldemo.bean.*;
 
 import cn.edu.xmu.restfuldemo.bean.OrdersVo;
+import cn.edu.xmu.restfuldemo.service.RocketMQService;
 import cn.edu.xmu.restfuldemo.util.ResponseCode;
 import cn.edu.xmu.restfuldemo.util.ResponseUtil;
 import cn.edu.xmu.restfuldemo.util.ReturnObject;
@@ -42,6 +43,9 @@ public class OrdersController {
 
     @Autowired
     private HttpServletResponse httpServletResponse;
+
+    @Autowired
+    private RocketMQService rocketMQService;
 
 //    //方法的说明
 //    @ApiOperation(value = "获得一个订单对象",  produces="application/json;charset=UTF-8")
@@ -88,4 +92,78 @@ public class OrdersController {
 //                return ResponseUtil.fail(code);
 //        }
 //    }
+    @PostMapping("/post/rocket/1")
+    public void createGood1(@Validated @RequestBody Post_Orders post_orders, BindingResult bindingResult){
+        Object returnObject = processFieldErrors(bindingResult, httpServletResponse);
+        if (null != returnObject){
+            System.out.println("未通过合法性检查");
+        }
+
+        post_orders.setAddress("string");
+        post_orders.setConsignee("string");
+        post_orders.setCouponId(0);
+        post_orders.setMessage("string");
+        post_orders.setMobile("string");
+        post_orders.setGrouponId(0);
+        post_orders.setRegionId(0);
+        post_orders.setPresaleId(0);
+        Post_OrderItems post_orderItems=new Post_OrderItems();
+        post_orderItems.setQuantity(0);
+        post_orderItems.setCouponActId(0);
+        post_orderItems.setSkuId(0);
+        post_orders.getOrderItemsList().add(post_orderItems);
+
+        rocketMQService.sendOrdersMessage1(post_orders);
+        httpServletResponse.setStatus(HttpStatus.CREATED.value());
+    }
+    @PostMapping("/post/rocket/2")
+    public void createGood2(@Validated @RequestBody Post_Orders post_orders, BindingResult bindingResult){
+
+        Object returnObject = processFieldErrors(bindingResult, httpServletResponse);
+        if (null != returnObject){
+            System.out.println("未通过合法性检查");
+        }
+
+        post_orders.setAddress("string");
+        post_orders.setConsignee("string");
+        post_orders.setCouponId(0);
+        post_orders.setMessage("string");
+        post_orders.setMobile("string");
+        post_orders.setGrouponId(0);
+        post_orders.setRegionId(0);
+        post_orders.setPresaleId(0);
+        Post_OrderItems post_orderItems=new Post_OrderItems();
+        post_orderItems.setQuantity(0);
+        post_orderItems.setCouponActId(0);
+        post_orderItems.setSkuId(0);
+        post_orders.getOrderItemsList().add(post_orderItems);
+
+        rocketMQService.sendOrdersMessage1(post_orders);
+        httpServletResponse.setStatus(HttpStatus.CREATED.value());
+    }
+    @PostMapping("/post/rocket/3")
+    public void createGood3(@Validated @RequestBody Post_Orders post_orders, BindingResult bindingResult){
+
+        Object returnObject = processFieldErrors(bindingResult, httpServletResponse);
+        if (null != returnObject){
+            System.out.println("未通过合法性检查");
+        }
+
+        post_orders.setAddress("string");
+        post_orders.setConsignee("string");
+        post_orders.setCouponId(0);
+        post_orders.setMessage("string");
+        post_orders.setMobile("string");
+        post_orders.setGrouponId(0);
+        post_orders.setRegionId(0);
+        post_orders.setPresaleId(0);
+        Post_OrderItems post_orderItems=new Post_OrderItems();
+        post_orderItems.setQuantity(0);
+        post_orderItems.setCouponActId(0);
+        post_orderItems.setSkuId(0);
+        post_orders.getOrderItemsList().add(post_orderItems);
+
+        rocketMQService.sendOrdersMessage1(post_orders);
+        httpServletResponse.setStatus(HttpStatus.CREATED.value());
+    }
 }
