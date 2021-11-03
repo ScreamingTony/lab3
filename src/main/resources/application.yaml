@@ -14,13 +14,12 @@ spring:
         url: http://localhost:8081
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lab2?serverTimezone=GMT%2B8
+    url: jdbc:mysql://172.16.2.84:3306/lab2?serverTimezone=GMT%2B8
     username: root
-    password: qzqz111
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     initialization-mode: always
     schema: classpath:lab2-3schema.sql
-    data: classpath:lab2-3data.sql
     druid:
       #初始化时建立物理连接的个数
       initial-size: 3

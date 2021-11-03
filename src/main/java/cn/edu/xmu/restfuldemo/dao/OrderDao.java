@@ -88,7 +88,7 @@ public class OrderDao {
         getid.id++;
         ordersPo.setId(id);
         orderMapper.createOrders(ordersPo);
-        for(OrderItemPo orderItemPo:ordersPo.getOrder_itemPoList)
+        for(OrderItemPo orderItemPo:ordersPo.getOrder_itemPoList())
         {
             orderItemPo.setId(id);
             orderMapper.createOrderItem(orderItemPo);

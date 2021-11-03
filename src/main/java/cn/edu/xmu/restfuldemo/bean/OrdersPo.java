@@ -3,6 +3,7 @@ package cn.edu.xmu.restfuldemo.bean;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class OrdersPo {
         this.coupon_id=postOrders.getCouponId();
         this.presale_id=postOrders.getPresaleId();
         this.groupon_id=postOrders.getGrouponId();
+        order_itemPoList=new ArrayList<>(postOrders.getOrderItemsList().size());
         for(Post_OrderItems postOrderItems:postOrders.getOrderItemsList())
         {
             OrderItemPo orderItemPo=new OrderItemPo(postOrderItems);
