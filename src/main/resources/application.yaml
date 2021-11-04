@@ -59,7 +59,7 @@ mybatis:
 # 配置rocketmq（----------这块参数要注意，实验可能探究方向-------------）
 rocketmq:
   # 指定namesrv地址（-----------注意这里，记得改-------------）
-  name-server: 192.168.31.241:9876
+  name-server: 172.16.0.195:9876
   producer:
     #生产者group名称
     group: producer_group
